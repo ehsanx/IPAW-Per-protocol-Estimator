@@ -1,0 +1,3 @@
+# Purpose {-}
+
+The purpose of this supplement is to illustrate the estimators used in the article. This code and associated example dataset, is based on the Diagram 1 (i) data generating mechanism/simulation outlined in our manuscript; with true `log(OR)` = 0.7, and show how to calculate intention to treat (ITT), naive per-protocol (naive PP), baseline adjusted per-protocol and stabilized inverse probability weighted (IPW) adjusted per-protocol effect estimates. These estimators can be used for analyzing pragmatic trials in the presence of non-adherence. All computations were done in R version 3.6.1. 

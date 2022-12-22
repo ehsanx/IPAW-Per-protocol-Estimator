@@ -1,0 +1,166 @@
+# Inverse Probability Weighted Per Protocol Estimation {-}
+
+## Deriving Inverse Probability Weights {-}
+
+To fit the IPW-adjusted PP estimates, first, the weights are calculated for each observation. The stabilized weights for individual $i$'s $t$th  observation is given by:
+
+
+$$W_{i,t} = \prod_{t=1}^{t} \frac{P(A_{t} |B, t)}{P(A_{t} |B, t, L_{1,t}, L_{2,t})}$$
+where: $P(A_{t} |B, t)$ are the predicted values from logistic regression of the form:
+
+$$logit(A_{t}) = \gamma_{t} t + \gamma_{B} B$$
+
+and $P(A_{t} |B, t, L_{1,t}, L_{2, t})$ are the predicted values from logistic regression of the form:
+
+$$logit(A_{t}) = \gamma_{t} t + \gamma_{B} B + \gamma_{L1} L_{1, t} + \gamma_{L2} L_{2, t}$$
+
+To calculate these weights, we censor the complete dataset to include adherent observations:
+
+```{r, cache=TRUE}
+#### First artificially censor the original data within each arm
+simulated.data.treated <- simulated.data[simulated.data$Z==1 & 
+                                           simulated.data$Alag1==1,]
+simulated.data.control <- simulated.data[simulated.data$Z==0 & 
+                                           simulated.data$Alag1==0,]
+```
+
+We then fit the regression models for the numerator and the denominators, separately for each arm, starting with arm $Z=1$:
+
+```{r, cache=TRUE}
+##Create IP of artificial censoring weights
+##For records with Z=1 
+  
+## Calculate numerator alpha_hat coefs for stabilized IPW
+numprob.tr <- glm(A~t0+B, 
+                 data=simulated.data.treated, 
+                 family = binomial(link = "logit"))
+  
+## Calculate denominator alpha_hat coefs for stabilized IPW
+denomprob.tr <- glm(A~cavgL1+L2lag+t0+B, 
+                   data=simulated.data.treated, 
+                   family=binomial(link = "logit"))
+```
+
+Using the predicted probabilities, we can calculate the stabilized IPW, as well as the truncated stabilized IPW:
+
+```{r, cache=TRUE}
+## Calculating weights from the predicted probabilities
+## Derive the weight contributions at each time point
+simulated.data.treated <- simulated.data.treated %>%
+	mutate(wgt_temp = if_else(A==1, 
+	                          predict(numprob.tr, 
+	                                  simulated.data.treated, 
+	                                  type = "response") / 
+														  predict(denomprob.tr, 
+														          simulated.data.treated, 
+														          type = "response"),
+														0)) %>% 
+	## Group data by patient
+	group_by(id) %>% 
+	## Cumulative multiply the weight contributions within each patient
+	mutate(sipw = cumprod(wgt_temp)) %>% 
+	ungroup() %>% 
+	## Create truncated IPW weights
+	mutate(tsipw = pmin(pmax(sipw, quantile(sipw, .05)), 
+											quantile(sipw, .95)))
+
+```
+
+Then we repeat the process for arm $Z=0$ by fitting the regression models:
+
+```{r, cache=TRUE}
+##For records with Z=0 
+  
+## Calculate numerator alpha_hat coefs for stabilized IPW
+numprob.cntr <- glm(A~t0+B, 
+                 data=simulated.data.control, 
+                 family = binomial(link = "logit"))
+## Calculate denominator alpha_hat coefs for stabilized IPW
+denomprob.cntr <- glm(A~cavgL1+L2lag+t0+B, 
+                   data=simulated.data.control, 
+                   family=binomial(link = "logit"))
+```
+
+And using the predicted probabilities to generate the stabilized and truncated stabilized IPW:
+
+```{r, cache=TRUE}
+## Calculating weights from the predicted probabilities
+## Derive the weight contributions at each time point 
+simulated.data.control <- simulated.data.control %>% 
+	mutate(wgt_temp = if_else(A==0, 1- predict(numprob.cntr, 
+	                                           simulated.data.control, 
+	                                           type = "response") / 
+														  1- predict(denomprob.cntr, 
+														             simulated.data.control, 
+														             type = "response"),
+														0)) %>% 
+	## Group data by patient
+	group_by(id) %>%
+	## Cumulative multiply the weight contributions within each patient
+	mutate(sipw = cumprod(wgt_temp)) %>% 
+	ungroup() %>% 
+	## Create truncated IPW weights
+	mutate(tsipw = pmin(pmax(sipw, quantile(sipw, .05)), 
+											quantile(sipw, .95)))  
+
+```
+
+Now we can assess the weights by checking the mean and standard deviation of the stabilized vs. the truncated stabilized weights:
+
+```{r, cache=TRUE}
+## Assess the weights generated
+
+## Join arm 1 and arm 2 datasets
+simulated.data.combined <- rbind(simulated.data.control, 
+                                 simulated.data.treated)
+
+simulated.data.combined %>%
+	summarize(mean_SIPW = mean(sipw),
+						sd_SIPW = sd(sipw),
+						mean_TSIPW = mean(tsipw),
+						sd_TWIPW = sd(tsipw))
+```
+
+We see the weights are reasonably close to 1, and that truncation reduces the standard deviation of the weights. 
+
+## Fitting Weighted Outcome Models {-}
+
+To get the effect estimates, we perform weighted pooled logistic regression according to the following model:
+
+$$ logit(Y) = \gamma_{0} + \gamma_{A} A + \gamma_{t} t + \gamma_{B} B$$
+
+
+
+```{r, warning = FALSE, cache=TRUE}
+SIPWFit <- glm(Y ~ t0 + A + B, 
+               data = simulated.data.combined, 
+               family = binomial(link="logit"), 
+							 weight = sipw)
+## use start = rep(.001,4), control = list(maxit = 250) for identity link/reporting RD
+SIPWFit
+```
+
+```{r, cache=TRUE}
+cov.m1 <- vcovCL(SIPWFit, type = "HC0", cluster = simulated.data.combined$id)
+co.test <- coeftest(SIPWFit, vcov = cov.m1)
+co.CI <- coefci(SIPWFit, vcov = cov.m1, level = 0.95)
+      
+cat("Stabilized IPW adjusted PP effect estimate:", "\n",
+		"log(OR)", round(coefficients(SIPWFit)[["A"]],3), "\n",
+	  "95% CI:", round(co.CI["A","2.5 %"],3), ",",round(co.CI["A","97.5 %"],3), "\n",
+	  "p-value", round(co.test["A","Pr(>|z|)"],3), "\n",
+	  "robust standard error", round(sqrt(diag(cov.m1))[["A"]],3))
+  
+```
+
+Alternatively, we can again use the `summ()` function to obtain the same estimates:
+
+```{r, cache=TRUE}
+summ(SIPWFit, robust = "HC0", 
+     confint = TRUE, digits = 3, cluster="id", 
+     model.info = FALSE, model.fit = FALSE)
+```
+
+Note that, this model can alternatively use the truncated stabilized weights by switching the weight used in the regression calculation from `sipw` to `tsipw`. 
+
+

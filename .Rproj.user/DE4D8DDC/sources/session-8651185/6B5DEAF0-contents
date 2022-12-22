@@ -1,0 +1,7 @@
+# Adjusted Per Protocol Estimation {-}
+
+The last estimates to calculate are the adjusted PP estimates, including the baseline adjusted and stabilized IPW adjusted PP estimates. These estimates aim to adjust for bias introduced by only analyzing the cohort of adherent patients.
+
+- Baseline Adjusted Per Protocol Estimation
+- Post-baseline Prognostic Factor Adjusted Per Protocol Estimation
+- Inverse Probability Weighted Per Protocol Estimation

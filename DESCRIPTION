@@ -1,0 +1,6 @@
+Package: placeholder
+Type: Book
+Title: Illustrative example of Per-protocol effect estimation in R
+Version: 0.0.1
+Imports: bookdown
+Remotes: ehsanx/IPAW-Per-protocol-Estimator
