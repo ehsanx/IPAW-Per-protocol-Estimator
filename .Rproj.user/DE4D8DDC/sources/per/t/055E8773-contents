@@ -1,0 +1,75 @@
+\newpage
+\singlespacing
+\fontsize{11}{22}
+\selectfont
+
+\blandscape
+
+| Section | Setting | Parameters Varied | Range of Parameter Values Considered |
+|-----|----------|------------|----------------|
+| Aim 1: Structure of DGM | Diagram 1 (i) | Vary $\theta_{2}$ | $\theta_{2} \in \{$ -1.3, -1, -0.7, -0.3, 0, 0.3, 0.7, 1, 1.3$\}$ |
+|  | Diagram 1 (ii) | Fix: $\beta_{12} = \beta_{13} = \beta_{24} = \beta_{25} = \beta_{26} = 0$,  |  |
+|  |  | then vary $\theta_{2}$ | $\theta_{2} \in \{$ -1.3, -1, -0.7, -0.3, 0, 0.3, 0.7, 1, 1.3$\}$ |
+|  | Diagram 2 (i) | Fix: $\alpha_{41} = \alpha_{40} = 0$, |  |
+|  |  | then vary $\theta_{2}$  | $\theta_{2} \in \{$ -1.3, -1, -0.7, -0.3, 0, 0.3, 0.7, 1, 1.3$\}$ |
+|  | Diagram 2 (ii) | Fix: $\alpha_{41} = \alpha_{40} = 0$, |  |
+|  |  | $\beta_{12} = \beta_{13} = \beta_{24} = \beta_{25} = \beta_{26} = 0$, |  |
+|  |  | then vary $\theta_{2}$  | $\theta_{2} \in \{$ -1.3, -1, -0.7, -0.3, 0, 0.3, 0.7, 1, 1.3$\}$ |
+|  | Diagram 3 (i) | Fix: $\alpha_{41} = \alpha_{40} = 0$, |  |
+|  |  | $\beta_{1-1} = \beta_{2-1} = 0$, |  |
+|  |  | then vary $\theta_{2}$  | $\theta_{2} \in \{$ -1.3, -1, -0.7, -0.3, 0, 0.3, 0.7, 1, 1.3$\}$ |
+|  | Diagram 3 (ii) |  Fix: $\alpha_{41} = \alpha_{40} = 0$, |  |
+|  |  | $\beta_{1-1} = \beta_{2-1} = 0$, |  |
+|  |  | $\beta_{12} = \beta_{13} = \beta_{24} = \beta_{25} = \beta_{26} = 0$, |  |
+|  |  | then vary $\theta_{2}$ | $\theta_{2} \in \{$ -1.3, -1, -0.7, -0.3, 0, 0.3, 0.7, 1, 1.3,   1.5$\}$ |
+|  | Diagram 4 (i) | Fix: $\alpha_{41} = \alpha_{40} = 0$, |  |
+|  |  | $\beta_{1-1} = \beta_{2-1} = 0$, $\theta_1 = 0$, |  |
+|  |  | then vary $\theta_{2}$  | $\theta_{2} \in \{$ -1.3, -1, -0.7, -0.3, 0, 0.3, 0.7, 1, 1.3$\}$ |
+|  | Diagram 4 (ii) |  Fix: $\alpha_{41} = \alpha_{40} = 0$, |  |
+|  |  | $\beta_{1-1} = \beta_{2-1} = 0$, $\theta_1 = 0$, |  |
+|  |  | $\beta_{12} = \beta_{13} = \beta_{24} = \beta_{25} = \beta_{26} = 0$, |  |
+|  |  | then vary $\theta_{2}$ | $\theta_{2} \in \{$ -1.3, -1, -0.7, -0.3, 0, 0.3, 0.7, 1, 1.3,   1.5$\}$ |
+| Aim 2: Non-Adherence | Non-differential | Vary $\alpha_{01}, \alpha_{00}$     | to fix proportion of protocol deviation and event rate via grid search:  |
+|  |  |  | Adherence rates in both arms $\in \{ 0\%, 20\%, 40\%, 60\%, 80\% \}$ |
+|  | Differential | Vary $\alpha_{01}, \alpha_{00}$     | For each adherence rates in treated arm $\in \{ 0\%, 20\%, 40\%, 60\%, 80\% \}$, |
+|  |  |  | adherence rates in control arm $\in \{ 0\%, 20\%, 40\%, 60\%, 80\% \}$ |
+|  | Measurement Schedule, | For each $m$ | $m \in \{$ 1, 6, 12, 18, 24 $\}$, |
+|  | different combinations of $A$ and $L$ | Vary $\alpha_{01}$ and $\alpha_{00}$ | adherence rates in both arms $\in \{ 0\%, 20\%, 40\%, 60\%, 80\% \}$ |
+| Additional Simulations | Varying Treatment Effect and Trial Size | For each $n$,  | $n \in \{200, 1000, 2000 \}$  |
+|  |  | vary $\theta_{2}$ | $\theta_{2} \in \{$ -1.3, -1, -0.7, -0.5, -0.3, 0, 0.3, 0.5, 0.7, 1, 1.3   $\}$ |
+|  | Event Rate | Vary $\theta_{0}$ | $\theta_{0} \in \{$-19, -17.9, -17.3, -16, -16.8,-15, -14.6, -14.2,   -13.8,-13.4, -12.8, -12.3, -11.8, -11.3, -10.8 $\}$ |
+|  | Effect of Time On $Y$ | Vary $\theta_{5}$ | $\theta_{5} \in \{$ 0, 0.01, 0.02, 0.03, 0.04, 0.05,0.075, 0.1 $\}$ |
+|  | Measurement Schedule, | For each $m$, |  |
+|  | different combinations of $A$ and $L$  | Vary $m$ | $m \in \{$ 1, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30 $\}$ |
+
+Table: Table of parameters used in the simulations. Settings that varied two parameters explored different combinations of the parameters simultaneously. The parameters in this table correspond to the data generation mechanism (DGM) as defined in equations (\ref{eq:L1})-(\ref{eq:Y}): $\beta$ parameters are from equations (\ref{eq:L1})-(\ref{eq:L2}), $\alpha$ parameters are from equations (\ref{eq:A0})-(\ref{eq:A1}), $\theta$ parameters are from equation (\ref{eq:Y}).\label{tbl:simParams}
+
+\elandscape
+
+
+\newpage
+
+\begin{table}[ht] 
+\begin{center}
+\begin{threeparttable}
+\caption{Estimated effect of cholestyramine treatment on coronary heart disease death or non-fatal myocardial infarction.\label{fig:lipidestimates}}
+\begin{tabular}{lcccccc}
+\toprule
+Method &  \multicolumn{2}{c}{Weights} & \multicolumn{2}{c}{Coef. (log(OR))} & \multicolumn{2}{c}{OR}\\
+  &  Mean &  Min-Max 	 &  Estimate	 &  SE	 &  Estimate	 &  $95\%$ CI \\
+\midrule
+ITT   &   &   & 	-0.16  & 	0.13	 & 	0.85	 & 	0.66-1.09 \\
+Naïve PP  &   &  	 &  -0.22	 &  0.29	 & 	0.80	 & 	0.45-1.41 \\
+B Adj. PP	 &   &   &  -0.25	 &  0.29	 & 	0.78	 & 	0.45-1.37 \\
+L Adj. PP	 &   &   &  0.18	 &  0.33	 &  1.20	 &  0.63-2.28 \\
+uIPW PP  & 1.34  &  1.00-172.49  &  -0.79	 &  0.50	 &  0.46	 &  0.17-1.21 \\
+uIPW PP ($5\%$ truncated)  &  1.16  &  1.00-1.44  &  -0.27	 &  0.29	 &  0.76	 &  0.43-1.34 \\
+sIPW PP	 &  1.01  &  0.16-10.52  &  -0.31	 &  0.29	 &  0.74	 &  0.42-1.29 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item OR: odds ratio; CI: confidence interval; SE: robust standard error; ITT: intention to treat; Naive PP: naive per-protocol; B Adj. PP: baseline adjusted per-protocol; L Adj. PP: time-varying covariates adjusted per-protocol; uIPW PP: unstabilized inverse probability weighted per-protocol; sIPW PP: stabilized inverse probability weighted per-protocol.
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table}

@@ -1,0 +1,62 @@
+\newpage
+\singlespacing
+\fontsize{11}{22}
+\selectfont
+
+\begin{landscape}
+
+\begin{figure}[ht]
+\centering
+\begin{threeparttable}
+\begin{tabular}{C{3cm} L{6cm} L{6cm}}
+     \toprule 
+     Diagram & (i) $A$ affects subsequent $L$  & (ii) $A$ does not affect subsequent $L$\\
+     \midrule
+      Diagram 1: $B$ affects $A$ and $Y$ directly & \includegraphics{figures/MainDAG.PNG} & \includegraphics{figures/MainDAG8.PNG}\\
+      Diagram 2: $B$ affects $Y$ directly, but $A$ indirectly via $L$ & \includegraphics{figures/MainDAG2.PNG} &   \includegraphics{figures/MainDAG5.PNG} \\
+      Diagram 3: $B$ affects $Y$ directly, but not $A$ & \includegraphics{figures/MainDAG3.PNG} & \includegraphics{figures/MainDAG4.PNG}\\
+      Diagram 4: $B$ does not affect $Y$ or $A$ & \includegraphics{figures/MainDAG7.PNG} & \includegraphics{figures/MainDAG6.PNG}\\
+\bottomrule
+\end{tabular}
+\caption{Data generating mechanisms describing the desired simulations for comparing sustained treatment strategies. $Z$ is an indicator of randomization group and $B$ is the baseline covariate. $L_{t-1}$ and $L_{t}$ are time-varying covariates at times $t-1$ and $t$, respectively., $A_{t-1}$ and $A_{t}$ indicates treatment received at times $t-1$ and $t$, respectively. $Y_{t+1}$ is the outcome of interest observed at time $t+1$. We assumed no loss to follow-up, and once a subject deviates from protocol, they remain non-adherent for the remaining follow-up.} 
+\label{fig:MainDAG}
+\begin{tablenotes}[para]
+For the base scenario (Diagram 1 (i)), the complete list of parameters are listed below. For eq. (\ref{eq:L1}), we set ($\beta_{1-0}$, $\beta_{1-1}$, $\beta_{1-2}$, $\beta_{1-3}$, $\beta_{1-4}$, $\beta_{1-5}$, $\beta_{1-6}$) = (0,	6, -1, -1, 0.25, 0, 0, 0.01). 
+For eq. (\ref{eq:L2}), we set ($\beta_{2-0}$, $\beta_{2-1}$, $\beta_{2-2}$, $\beta_{2-3}$, $\beta_{2-4}$, $\beta_{2-5}$, $\beta_{2-6}$) = (-5,	3,	1.25,	0.5,	0	0.25,	0.25). For eq. (\ref{eq:A0}), we set  ($\alpha_{00}$, $\alpha_{10}$, $\alpha_{20}$, $\alpha_{30}$) = (-7.625, 0.4, 0.35, 0, 1.5). For eq. (\ref{eq:A1}), we set ($\alpha_{01}$, $\alpha_{11}$, $\alpha_{21}$, $\alpha_{31}$, $\alpha_{41}$) = (3.35, 0.4, 0.35, 0, 1.5). Finally, for eq. (\ref{eq:Y}), we set $(\theta_{0}$, $\theta_{1}$, $\theta_{2}$) = (-13.44, 6.75, -1.3). 
+\end{tablenotes}
+\end{threeparttable}
+\end{figure}
+
+\end{landscape}
+
+\begin{landscape}
+
+```{r dgmbx,echo=FALSE, out.width = '100%', fig.align='center', fig.cap = 'A) Bias plotted against increasing treatment effect for two naive effect estimates: intention-to-treat and naive per-protocol. B) Five versions of per-protocol estimates (when B is measured, used during estimation). C) Two versions of per protocol estimates are presented (when B is not measured, not used during estimation). Different lines corresponds to different data generating mechanisms. A log(OR) of 0 corresponds to a null treatment effect. Abbreviations: ITT: intention to treat; Naive PP: Naive per-protocol; B Adj. PP: Baseline adjusted per-protocol; L Adj. PP: post-baseline prognostic factor adjusted-per-protocol; B+L Adj. PP: baseline and post-baseline prognostic factor adjusted-per-protocol; sIPW PP: stabilized inverse probability weighted per-protocol.\\label{fig:dgmb}'}
+knitr::include_graphics("figures/dgmb.png")
+```
+
+
+\end{landscape}
+
+\begin{landscape}
+
+
+
+
+```{r dgmcx,echo=FALSE, out.width = '100%', fig.align='center', fig.cap = 'A) 95 percent coverage probability (upper panel) and mean squared error (lower panel) plotted against increasing treatment effect for two versions of per-protocol estimates (when B is measured). B) Same estimates are presented (when B is not measured or adjusted). Different lines corresponds to different data generating mechanisms. A log(OR) of 0 correspond to a null treatment effect. Abbreviations: B Adj. PP: Baseline adjusted per-protocol; L Adj. PP: post-baseline prognostic factor adjusted-per-protocol; sIPW PP: stabilized inverse probability weighted per-protocol.\\label{fig:dgmc}'}
+knitr::include_graphics("figures/dgmc.png")
+```
+
+\end{landscape}
+
+```{r Non-Adherencex, echo=FALSE, out.width = '90%', fig.align='center', fig.cap = 'Bias (plot A) and average model standard error (plot B) against non-adherence rates for each effect estimate. Non-adherence rates in both arms are the same in these simulations. We only considered situations where treatment received $A$ impacts future post-baseline prognostic factors $L$. Abbreviations: B Adj. PP: Baseline adjusted per-protocol; B+L Adj. PP: baseline and post-baseline prognostic factor adjusted-per-protocol; uIPW PP: unstabilized inverse probability weighted per-protocol; sIPW PP: stabilized inverse probability weighted per-protocol.\\label{fig:Non-Adherence}'}
+knitr::include_graphics("figures/adb.png")
+```
+
+```{r Non-AdherenceDiffx, echo=FALSE, out.width = '90%', fig.align='center', fig.cap = 'Bias (plot A) and average model standard error (plot B) against non-adherence rates in the control arm for each effect estimate. Non-adherence rates in both arms can be different in these simulations. Data was generated based on Diagram (i) data generating process. B Adj. PP: Baseline adjusted per-protocol; B+L Adj. PP: baseline and post-baseline prognostic factor adjusted-per-protocol; uIPW PP: unstabilized inverse probability weighted per-protocol; sIPW PP: stabilized inverse probability weighted per-protocol. \\label{fig:Non-AdherenceDiff}'}
+knitr::include_graphics("figures/Non-Adherence Both1i.png")
+```
+
+```{r VaryingNA-Biasx, echo=FALSE, out.width = '90%', fig.align='center', fig.cap = 'Bias observed in each estimation method across 1000 iterations of the simulation as the rate of non-adherence varies between $10$ percent and $90$ percent with equal non-adherence rates in each arm. Colour denotes the time between measurements for the sparse adherence and time-varying covariates. Both time-varying covariates and adherence were sparse during the follow-up period and were imputed using LOCF. B Adj. PP: Baseline adjusted per-protocol; sIPW PP: stabilized inverse probability weighted per-protocol.\\label{fig:VaryingNA-Bias}'}
+knitr::include_graphics("figures/Varying Non-Adherence - Bias - Faceted.png")
+```

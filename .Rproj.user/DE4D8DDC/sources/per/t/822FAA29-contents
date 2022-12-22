@@ -1,0 +1,375 @@
+---
+title: Supplementary materials for "Properties of Inverse Probability of Adherence Weighted Estimator of the Per-protocol Effect for Sustained Treatment Strategies under Different Data-generating Mechanisms and Adherence Patterns"
+output:
+  pdf_document:
+    citation_package: natbib
+    fig_caption: yes
+    keep_tex: yes
+    latex_engine: xelatex
+    number_sections: yes
+  html_document:
+    df_print: paged
+    citation_package: natbib
+    fig_caption: yes
+    number_sections: yes
+  word_document: default
+  bookdown::html_document2:
+    citation_package: natbib
+    df_print: paged
+    fig_caption: yes
+    highlight: textmate
+    keep_md: yes
+    number_sections: yes
+    theme: lumen
+bibliography: bibliography3.bib
+biblio-style: plainnat2
+always_allow_html: yes
+header-includes:
+- \usepackage{graphicx,longtable,booktabs,threeparttable}
+- \usepackage{float}
+- \usepackage{setspace}\singlespacing
+- \floatplacement{figure}{H}
+- \floatplacement{table}{H}
+- \usepackage{xcolor,lipsum,caption}
+- \usepackage[round]{natbib}
+- \usepackage{pdflscape}
+- \usepackage{lscape}
+- \newcommand{\blandscape}{\begin{landscape}}
+- \newcommand{\elandscape}{\end{landscape}}
+- \usepackage{array}
+  \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+  \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+  \newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+link-citations: yes
+fontsize: 10pt
+geometry: margin=.8in
+---
+
+# Statistical Properties for Evaluating Effect Estimators {#app1}
+
+This section contains the statistical properties used to evaluate each effect estimator as part of this simulation. These statistical properties have been calculated for each estimator. Each property includes a brief description as well as the formula for the estimate and the standard error for the estimate (if applicable).
+
+For this section let $\hat{\theta}_{i}$ denote the estimated treatment effect for iteration $i$ of the simulation, where $i \in 1, ..., n_{sim}$. The true treatment effect is denoted $\theta$, and the average of the estimated treatment effect across all iterations is $\bar{\theta}$. Additionally, let $p_{i}$ denote the p-value associated with the coefficient for the treatment effect at iteration $i$, and $\hat{\theta}_{high, i}, \hat{\theta}_{low, i}$ denote the upper and lower 95\% confidence intervals for the estimated treatment effect for iteration $i$. Finally, let $\widehat{\text{Var}}(\hat{\theta}_{i})$ be the estimated variance associated with the effect estimate $\hat{\theta}_{i}$. In these definitions we also use $\mathbf{I}$ to denote the indicator function. The indicator function returns a value of $1$ if the input condition is true, and $0$ otherwise.
+
+
+**Convergence**: this denotes what proportion of iterations of the simulation yielded valid treatment effect estimates.  
+\begin{align*}
+    \frac{1}{n_{sim}} \sum_{i=1}^{n_{sim}} \mathbf{I} (\theta_{i} \in \mathbf{R})
+\end{align*}
+
+**Bias**: quantifies how far each treatment effect estimates is from the true treatment effect.
+\begin{align*}
+    \frac{1}{n_{sim}} \sum_{i=1}^{n_{sim}} \hat{\theta}_{i}-\theta & & \sqrt{\frac{1}{n_{sim}\left(n_{sim}-1\right)}  \sum_{i=1}^{n_{sim}}\left(\hat{\theta}_{i}-\bar{\theta}\right)^{2}}
+\end{align*}  
+
+**Coverage Probability**: quantifies what proportion of confidence intervals include the true treatment effect. If an estimate is unbiased, the coverage probability should be equal to the confidence level for the calculated intervals. 
+\begin{align*}
+    \frac{1}{n_{sim}} \sum_{i=1}^{n_{sim}} \mathbf{I}(\hat{\theta}_{low, i} \le \theta \le \hat{\theta}_{high, i}) & & \sqrt{\frac{\text{Cover.}\times (1 -\text{ Cover. })}{n_{sim}}}
+\end{align*}
+
+**Bias-Adjusted Coverage Probability**: quantifies what proportion of confidence intervals include the average estimated treatment effect. The coverage probability should be equal to the confidence level for the calculated intervals, regardless of whether the estimator is unbiased.
+\begin{align*}
+    \frac{1}{n_{sim}} \sum_{i=1}^{n_{sim}} \mathbf{I}(\hat{\theta}_{low, i} \le \theta \le \hat{\theta}_{high, i}) & & 
+    \sqrt{\frac{\text{B.A. Cover.}\times (1 -\text{B.A. Cover.})}{n_{sim}}}
+\end{align*}
+
+**Empirical Standard Error (EmpSE)**: quantifies the standard error between the treatment effect estimates and the average estimated treatment effect across iterations. 
+\begin{align*}
+    \sqrt{\frac{1}{n_{sim} - 1} \sum_{i=1}^{n_{sim}}(\hat{\theta}_{i} - \bar{\theta})^{2}} & & 
+    \frac{\hat{EmpSE}}{\sqrt{2 (n_{sim}-1)}}
+\end{align*}
+
+**Average Model Standard Error (ModSE)**: averages the standard error estimated for each treatment effect estimate. 
+\begin{align*}
+    \sqrt{\frac{1}{n_{sim}} \sum_{i=1}^{n_{sim}} \widehat{\text{Var}} (\hat{\theta}_{i})} & & \sqrt{\frac{\widehat{\text{Var}}[\widehat{\text{Var}} (\hat{\theta}_{i})]}{4 n_{sim} \times \widehat{ModSE}^2}}
+\end{align*}
+
+
+**Mean Squared Error (MSE)**: quantifies the bias and variance of a given treatment effect simultaneously.
+\begin{align*}
+    \frac{1}{n_{sim}} \sum_{i=1}^{n_{sim}} \left( \hat{\theta}_{i} - \theta \right)^{2} & & \sqrt{\frac{\sum_{i=1}^{n_{sim}} \left[ (\hat{\theta}_{i}-\theta)^{2}-\widehat{MSE}\right]^{2}}{n_{sim} \times (n_{sim}-1)}}
+\end{align*}
+
+**Power or Type I Error (Power)**: quantifies what proportion of iterations yielded a statistically significant treatment effect estimate for a given significance level $\alpha$. 
+\begin{align*}
+    \frac{1}{n_{sim}} \sum_{i=1}^{n_{sim}} \mathbf{I} \left(p_{i} \le \alpha \right) & & \sqrt{\frac{\text{Power} \times (1 -\text{Power})}{n_{sim}}}
+\end{align*}
+
+**Confidence Interval Length**: calculates the average confidence interval length for an estimator across all iterations of the simulation.
+\begin{align*}
+    \frac{1}{n_{sim}} \sum_{i=1}^{n_{sim}} \hat{\theta}_{high, i} - \hat{\theta}_{low, i}
+\end{align*}
+
+
+# Cumulative survival type estimates {#mvs1}
+
+All cumulative survival type estimates calculated the log(OR) estimate of the treatment effect as:
+
+\begin{equation*}\label{simple-est-def}
+    \text{log}\left(\frac{1 - S_{1}(K)}{1 - S_{0}(K)}\right).
+\end{equation*}
+
+\noindent Where $S_{z}(K)$ is the cumulative survival among arm $z$ at time point $K$, which is defined as:
+
+\begin{equation*}\label{surv-def}
+    S_{z}(K) = \prod_{t = 0}^{K} \frac{n_{tz} - \sum_{i = 1}^{n_{tz}} y_{t,i}}{n_{tz}}.
+\end{equation*}
+
+\clearpage
+
+
+\blandscape
+
+# Simulation Settings
+
+| Section | Setting | Parameters Varied | Range of Parameter Values Considered |
+|-----|----------|------------|----------------|
+| Aim 1: Structure of DGM | Diagram 1 (i) | Vary $\theta_{2}$ | $\theta_{2} \in \{$ -1.3, -1, -0.7, -0.3, 0, 0.3, 0.7, 1, 1.3$\}$ |
+|  | Diagram 1 (ii) | Fix: $\beta_{12} = \beta_{13} = \beta_{24} = \beta_{25} = \beta_{26} = 0$,  |  |
+|  |  | then vary $\theta_{2}$ | $\theta_{2} \in \{$ -1.3, -1, -0.7, -0.3, 0, 0.3, 0.7, 1, 1.3$\}$ |
+|  | Diagram 2 (i) | Fix: $\alpha_{41} = \alpha_{40} = 0$, |  |
+|  |  | then vary $\theta_{2}$  | $\theta_{2} \in \{$ -1.3, -1, -0.7, -0.3, 0, 0.3, 0.7, 1, 1.3$\}$ |
+|  | Diagram 2 (ii) | Fix: $\alpha_{41} = \alpha_{40} = 0$, |  |
+|  |  | $\beta_{12} = \beta_{13} = \beta_{24} = \beta_{25} = \beta_{26} = 0$, |  |
+|  |  | then vary $\theta_{2}$  | $\theta_{2} \in \{$ -1.3, -1, -0.7, -0.3, 0, 0.3, 0.7, 1, 1.3$\}$ |
+|  | Diagram 3 (i) | Fix: $\alpha_{41} = \alpha_{40} = 0$, |  |
+|  |  | $\beta_{1-1} = \beta_{2-1} = 0$, |  |
+|  |  | then vary $\theta_{2}$  | $\theta_{2} \in \{$ -1.3, -1, -0.7, -0.3, 0, 0.3, 0.7, 1, 1.3$\}$ |
+|  | Diagram 3 (ii) |  Fix: $\alpha_{41} = \alpha_{40} = 0$, |  |
+|  |  | $\beta_{1-1} = \beta_{2-1} = 0$, |  |
+|  |  | $\beta_{12} = \beta_{13} = \beta_{24} = \beta_{25} = \beta_{26} = 0$, |  |
+|  |  | then vary $\theta_{2}$ | $\theta_{2} \in \{$ -1.3, -1, -0.7, -0.3, 0, 0.3, 0.7, 1, 1.3,   1.5$\}$ |
+|  | Diagram 4 (i) | Fix: $\alpha_{41} = \alpha_{40} = 0$, |  |
+|  |  | $\beta_{1-1} = \beta_{2-1} = 0$, $\theta_1 = 0$, |  |
+|  |  | then vary $\theta_{2}$  | $\theta_{2} \in \{$ -1.3, -1, -0.7, -0.3, 0, 0.3, 0.7, 1, 1.3$\}$ |
+|  | Diagram 4 (ii) |  Fix: $\alpha_{41} = \alpha_{40} = 0$, |  |
+|  |  | $\beta_{1-1} = \beta_{2-1} = 0$, $\theta_1 = 0$, |  |
+|  |  | $\beta_{12} = \beta_{13} = \beta_{24} = \beta_{25} = \beta_{26} = 0$, |  |
+|  |  | then vary $\theta_{2}$ | $\theta_{2} \in \{$ -1.3, -1, -0.7, -0.3, 0, 0.3, 0.7, 1, 1.3,   1.5$\}$ |
+| Aim 2: Non-Adherence | Non-differential | Vary $\alpha_{01}, \alpha_{00}$     | to fix proportion of protocol deviation and event rate via grid search:  |
+|  |  |  | Adherence rates in both arms $\in \{ 0\%, 20\%, 40\%, 60\%, 80\% \}$ |
+|  | Differential | Vary $\alpha_{01}, \alpha_{00}$     | For each adherence rates in treated arm $\in \{ 0\%, 20\%, 40\%, 60\%, 80\% \}$, |
+|  |  |  | adherence rates in control arm $\in \{ 0\%, 20\%, 40\%, 60\%, 80\% \}$ |
+|  | Measurement Schedule, | For each $m$ | $m \in \{$ 1, 6, 12, 18, 24 $\}$, |
+|  | different combinations of $A$ and $L$ | Vary $\alpha_{01}$ and $\alpha_{00}$ | adherence rates in both arms $\in \{ 0\%, 20\%, 40\%, 60\%, 80\% \}$ |
+| Additional Simulations | Varying Treatment Effect and Trial Size | For each $n$,  | $n \in \{200, 1000, 2000 \}$  |
+|  |  | vary $\theta_{2}$ | $\theta_{2} \in \{$ -1.3, -1, -0.7, -0.5, -0.3, 0, 0.3, 0.5, 0.7, 1, 1.3   $\}$ |
+|  | Event Rate | Vary $\theta_{0}$ | $\theta_{0} \in \{$-19, -17.9, -17.3, -16, -16.8,-15, -14.6, -14.2,   -13.8,-13.4, -12.8, -12.3, -11.8, -11.3, -10.8 $\}$ |
+|  | Effect of Time On $Y$ | Vary $\theta_{5}$ | $\theta_{5} \in \{$ 0, 0.01, 0.02, 0.03, 0.04, 0.05,0.075, 0.1 $\}$ |
+|  | Measurement Schedule, | For each $m$, |  |
+|  | different combinations of $A$ and $L$  | Vary $m$ | $m \in \{$ 1, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30 $\}$ |
+
+Table: Table of parameters used in the simulations. Settings that varied two parameters explored different combinations of the parameters simultaneously. The parameters in this table correspond to the data generation mechanism (DGM) as defined in equations (2.1)-(2.5): $\beta$ parameters are from equations (2.1)-(2.2), $\alpha$ parameters are from equations (2.3)-(2.4), $\theta$ parameters are from equation (2.5).\label{tbl:simParams}
+
+\elandscape
+
+\begin{landscape}
+
+\section{Simulation Results} 
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=1\linewidth]{figures/dgmb}
+
+}
+
+\caption{A) Bias plotted against increasing treatment effect for two naive effect estimates: intention-to-treat and naive per-protocol. B) Five versions of per-protocol estimates (when B is measured, used during estimation). C) Two versions of per protocol estimates are presented (when B is not measured, not used during estimation). Different lines corresponds to different data generating mechanisms. A log(OR) of 0 corresponds to a null treatment effect. Abbreviations: ITT: intention to treat; Naive PP: Naive per-protocol; B Adj. PP: Baseline adjusted per-protocol; L Adj. PP: post-baseline prognostic factor adjusted-per-protocol; B+L Adj. PP: baseline and post-baseline prognostic factor adjusted-per-protocol; sIPW PP: stabilized inverse probability weighted per-protocol.\label{fig:dgmb}}\label{fig:dgmbx}
+\end{figure}
+
+
+\end{landscape}
+
+\begin{landscape}
+
+
+
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=1\linewidth]{figures/dgmc}
+
+}
+
+\caption{A) 95 percent coverage probability (upper panel) and mean squared error (lower panel) plotted against increasing treatment effect for two versions of per-protocol estimates (when B is measured). B) Same estimates are presented (when B is not measured or adjusted). Different lines corresponds to different data generating mechanisms. A log(OR) of 0 correspond to a null treatment effect. Abbreviations: B Adj. PP: Baseline adjusted per-protocol; L Adj. PP: post-baseline prognostic factor adjusted-per-protocol; sIPW PP: stabilized inverse probability weighted per-protocol.\label{fig:dgmc}}\label{fig:dgmcx}
+\end{figure}
+
+\end{landscape}
+
+
+```{r Non-Adherencex, echo=FALSE, out.width = '90%', fig.align='center', fig.cap = 'Bias (plot A) and average model standard error (plot B) against non-adherence rates for each effect estimate. Non-adherence rates in both arms are the same in these simulations. We only considered situations where treatment received $A$ impacts future post-baseline prognostic factors $L$. Abbreviations: B Adj. PP: Baseline adjusted per-protocol; B+L Adj. PP: baseline and post-baseline prognostic factor adjusted-per-protocol; uIPW PP: unstabilized inverse probability weighted per-protocol; sIPW PP: stabilized inverse probability weighted per-protocol.\\label{fig:Non-Adherence}'}
+knitr::include_graphics("figures/adb.png")
+```
+
+```{r Non-AdherenceDiffx, echo=FALSE, out.width = '90%', fig.align='center', fig.cap = 'Bias (plot A) and average model standard error (plot B) against non-adherence rates in the control arm for each effect estimate. Non-adherence rates in both arms can be different in these simulations. Data was generated based on Diagram (i) data generating process. B Adj. PP: Baseline adjusted per-protocol; B+L Adj. PP: baseline and post-baseline prognostic factor adjusted-per-protocol; uIPW PP: unstabilized inverse probability weighted per-protocol; sIPW PP: stabilized inverse probability weighted per-protocol. \\label{fig:Non-AdherenceDiff}'}
+knitr::include_graphics("figures/Non-Adherence Both1i.png")
+```
+
+```{r VaryingNA-Biasx, echo=FALSE, out.width = '90%', fig.align='center', fig.cap = 'Bias observed in each estimation method across 1000 iterations of the simulation as the rate of non-adherence varies between $10$ percent and $90$ percent with equal non-adherence rates in each arm. Colour denotes the time between measurements for the sparse adherence and time-varying covariates. Both time-varying covariates and adherence were sparse during the follow-up period and were imputed using LOCF. B Adj. PP: Baseline adjusted per-protocol; sIPW PP: stabilized inverse probability weighted per-protocol.\\label{fig:VaryingNA-Bias}'}
+knitr::include_graphics("figures/Varying Non-Adherence - Bias - Faceted.png")
+```
+
+\newpage
+
+# Additional Simulation Settings and Results {#appAddRes}
+
+
+
+## Checking the validity of simulation algorithm  {-}
+
+### Varying Treatment Effect and Trial Size  {-}
+
+```{r TreatEffTrialSizex,echo=FALSE, out.width = '90%', fig.align='center', fig.cap = 'A) Bias plotted against treatment effect for each effect estimate where the colour corresponds to the trial size in terms of number of participants per arm. B) Power or proportion of times the treatment effect was found to be statistically significant plotted against the treatment effect for each effect estimate where the colour corresponds to the trial size. Note that for both figures a log(OR) effect of treatment of 0 correspond to a null treatment effect.\\label{fig:TreatEffTrialSize}'}
+knitr::include_graphics("figures/Trial Size and Treatment Effect.png")
+```
+
+For our base scenario Diagram 1 (i), Figure \ref{fig:TreatEffTrialSize} A illustrates the bias observed for each estimation method as the treatment effect varies. In this scenario, as a result to changing treatment effect, event rates varied between $~5\%$ (associated with $\theta_2$ = -1.3) and $~15\%$ (associated with $\theta_2$ = 1.3), with adherence rates fixed at $\sim 25\%$. As expected, stabilized IPW and baseline adjusted per-protocol estimates are approximately unbiased for all assessed treatment effects, with some observed bias when the trial size is small (e.g., $n = 200$ participants per arm). Figure \ref{fig:TreatEffTrialSize} B illustrates the power observed as the treatment effect changes, with a U-shaped pattern for all effect estimates. For the naive per-protocol estimate we see the U-shape is not centred at the null treatment effect indicating undesirable performance.
+
+Considering the precision of the effect estimates, the empirical standard error and model standard error results can be seen in Figure \ref{fig:TreatEffTrialSizeSE}. For all effect estimates, the empirical standard error decreases as the $log(OR)$ treatment effect increases. This is likely due to strong positive treatment effects leading to increases in the event rate, allowing greater precision when estimating. Empirical standard error also decreases as the trial size increases, for all effect estimates. For all effect estimates presented, the empirical standard error and the model standard error align well for all treatment effects, if the trial size is $n = 1000$ or larger. This indicates that our models accurately estimate the standard error of the treatment effect.
+
+```{r TreatEffTrialSizeSEx, echo=FALSE, out.width = '90%', fig.align='center', fig.cap = 'Empirical standard error and model standard error (columns) for each effect estimate (rows) plotted against the $log(OR)$ effect of treatment, for various trial sizes (colour).\\label{fig:TreatEffTrialSizeSE}'}
+knitr::include_graphics("figures/TrialCharacteristics/Trial Size and Treatment Effect SE.png")
+```
+
+A final key statistical property to assess is the performance of the confidence intervals using coverage probability. The results for coverage probability and unbiased coverage probability as the treatment effect varies for different trial sizes can be seen in Figure \ref{fig:TreatEffTrialSizeCov}. Coverage probability is the proportion of confidence intervals that include the true treatment effect. For a traditional $95\%$ confidence interval, the coverage probability should equal $95\%$. Under or over-coverage may be attributed to bias or incorrect interval width. To remove the effect of bias, Morris et al. [@morris_white_crowther_2019] proposed unbiased coverage probability as a metric to assess the accuracy of the confidence interval length and thus standard error. The ITT and naive per-protocol estimate largely suffer from under-coverage, due to bias. The ITT effect has appropriate coverage probability for a null treatment effect (when it is also unbiased), and both the ITT and naive per-protocol estimate have unbiased coverage probability approximately equal to $95\%$ for all treatment effects assessed. For the stabilized IPW and baseline adjusted per-protocol estimates we see coverage and unbiased coverage probabilities approximately equal to $95\%$ for all treatment effects and trial sizes. 
+
+
+```{r TreatEffTrialSizeCovx, echo=FALSE, out.width = '90%', fig.align='center', fig.cap = 'Coverage probability and unbiased coverage probability (columns) for each effect estimate (rows) plotted against the $log(OR)$ effect of treatment, for various trial sizes (colour).\\label{fig:TreatEffTrialSizeCov}'}
+knitr::include_graphics("figures/TrialCharacteristics/Trial Size and Treatment Effect Coverage.png")
+```
+
+### Event Rate {-}
+
+#### Model-based estimates {-}
+
+For this set of simulations, the event rates were varied between $0.1\%$ and $75\%$ among all participants. Figure \ref{fig:EventRateBias} plot A illustrates the bias observed as the event rate varies. Notably, we see that the stabilized IPW estimate as well as the baseline adjusted per-protocol estimate are unbiased for event rates between approximately 1\% and 75\%. The ITT estimate and the naive per-protocol estimate are biased for all event rates. We see that the estimates that are largely unbiased (stabilized IPW and baseline adjusted per-protocol estimate) have greater bias for small event rates ($<1\%$). In this scenario, adherence rates varied between $~20\%$ and $~30\%$. The variability in bias between iterations and the average model standard error (see Figure \ref{fig:EventRateBias} plot B) also increases with small event rates ($<1\%$) for all estimation methods. 
+
+```{r EventRateBiasx, echo=FALSE, out.width = '90%', fig.align='center', fig.cap = 'Bias (plot A) and average model standard error (plot B) observed in each estimation method across 1000 iterations of the simulation as the event rate varies between 0.001 and 0.75.\\label{fig:EventRateBias}'}
+knitr::include_graphics("figures/TrialCharacteristics/Event Rate - Both.png")
+```
+
+#### Cumulative survival methods {-}
+
+The cumulative survival method was also used to calculate the ITT, naive per-protocol, and unstabilized IPW per-protocol effect estimates as the event rate varied. In Appendix \ref{appAddRes}, Figure \ref{fig:EventRateSimpleBoth} illustrates the bias and convergence rates for the cumulative survival estimates. We see the biases observed for the cumulative survival ITT and naive per-protocol estimates are similar to the model-based ITT and naive per-protocol estimates at approximately $0.5$ and $0.7$ respectively. For the cumulative survival unstabilized IPW per-protocol estimate we see greater bias than with the model-based stabilized IPW per-protocol estimate. For these simple estimates, low event rates did not increase the variability of the effect estimates, but rather decreased the proportion of iterations that converged. With the event rate below $1\%$, as few as $30\%$ of iterations produced valid effect estimates.
+
+```{r EventRateSimpleBothx, echo=FALSE, out.width = '90%', fig.align='center', fig.cap = 'Bias (plot A) and convergence rate (plot B) observed in each of the cumulative survival type estimates across 1000 iterations of the simulation as the event rate varies between 0.001 and 0.75.\\label{fig:EventRateSimpleBoth}'}
+knitr::include_graphics("figures/TrialCharacteristics/Event Rate Simple Est - Both.png")
+```
+
+
+### The Effect of Time on the Outcome {-}
+
+The impact of the impact of time on the outcome for these estimates was assessed for linear effects, with the effect of time varying from having no impact on the outcome to having a moderate to strong impact on the outcome. The bias (plot A) and average model standard error (plot B) for these simulations are presented in Figure \ref{fig:TimeOnY}. For this simulation, time was set to have no effect on the outcome when the event rate was approximately $3\%$. The effect of time on the outcome was then increased until a total event rate of approximately $58\%$ was observed, corresponding to a $55\%$ increase in the event rate. In this scenario, adherence rates varied between $\sim 20\%$ and $\sim 30\%$. The stabilized IPW and baseline adjusted per-protocol estimates were unbiased for all effects of time assessed. In contrast, the ITT and naive per-protocol estimates were biased for all effects of time assessed, where time having a strong impact on the outcome led to the most biased effect estimates. When time had a strong impact on the outcome, more events were observed, resulting in lower average model standard error for all effect estimates.
+
+```{r TimeOnYx, echo=FALSE, out.width = '90%', fig.align='center', fig.cap = 'Bias (plot A) and average model standard error (plot B) against the increase in event rate due to the effect of time on the outcome.\\label{fig:TimeOnY}'}
+knitr::include_graphics("figures/TrialCharacteristics/Effect of Time on Y - Both.png")
+```
+
+### Sparse Follow-Up Measurements {-}
+
+Figure \ref{fig:VaryingTE-Power} illustrates power for each estimate, for both missing data handling methods as the effect of treatment is varied. In this scenario, we had adherence rates fixed at $\sim 25\%$ and event rates fixed at $\sim 20\%$. No substantial difference was observed in power depending on which variables were sparse during follow-up, so this plot presents the findings for when both adherence and time-varying covariates were sparse. Complete-case (CC) analysis consistently has less power than LOCF imputation. The difference in power between CC and LOCF analyses is most pronounced for strong non-zero treatment effects for the ITT, stabilized IPW, and baseline adjusted per-protocol estimates. The ITT, stabilized IPW, and baseline adjusted per-protocol estimates all achieve the desired power of $0.05$ for null treatment effects regardless of missing data method. The baseline adjusted per-protocol estimate combined with LOCF achieves $100\%$ power sooner than the stabilized IPW per-protocol estimate combined with LOCF ($|log(OR)| = 0.7$ compared to $|log(OR)| = 1$).
+
+```{r VaryingMS-ModSEx, echo=FALSE, out.width = '90%', fig.align='center', fig.cap = 'Average model standard error observed in each estimation method as the measurement schedule during the follow-up period varies from monthly measures ($m = 1$) to measures every 2 years ($m = 24$). Columns correspond to whether the adherence ($A$), time-varying covariates ($L_{1}$ and $L_{2}$), or both ($A, L_{1}$ and $L_{2}$) were sparse during the follow-up period. Rows correspond to the 4 main estimation methods. Colour denotes whether the analysis was based on CC or LOCF imputation. Note that in this Figure some error bars have been truncated to due to outliers.\\label{fig:VaryingMS-ModSE}'}
+knitr::include_graphics("figures/SparseFU/Varying Measurement Schedule - Mod SE.png")
+```
+
+```{r VaryingTE-Powerx, echo=FALSE, out.width = '70%', fig.align='center', fig.cap = 'Power observed in each estimation method across 1000 iterations of the simulation as the treatment effect varied. Colour denotes whether the analysis was based on CC or LOCF imputation. Note that no difference was observed depending on whether the adherence ($A$), time-varying covariates ($L_{1}$ and $L_{2}$), or both ($A, L_{1}$ and $L_{2}$) were sparse during the follow-up period. This Figure corresponds to when both adherence and time-varying covariates were subject to sparse measurement during the follow-up period\\label{fig:VaryingTE-Power}'}
+knitr::include_graphics("figures/SparseFU/Varying Treatment Effect - Power.png")
+```
+
+## Differential Non-Adherence Rates with Unmeasured Variable {-}
+
+```{r Non-AdherenceDiffUx, echo=FALSE, out.width = '90%', fig.align='center', fig.cap = 'Bias (plot A) and average model standard error (plot B) against non-adherence rates in the control arm for each effect estimate when treatment arm non-adherence rates can be different than that of the control arm and the baseline prognostic factor B is unmeasured. The data was generated from the process outlined in Diagram (i). \\label{fig:Non-AdherenceDiffU}'}
+knitr::include_graphics("figures/Non-Adherence BothU1i.png")
+```
+
+\clearpage
+
+
+# Details about the Case Study {#case13}
+
+## Measurement process  {-}
+The first four visits were for screening and identifying eight prognostic risk strata. A total of $3,550$ eligible participants were randomized at the fifth visit and followed for a minimum of seven years. Visits six and seven occurred at two weeks intervals. All subsequent visits occurred at two months intervals. More than fifty types of forms were used for data collection, including outcome ascertainment, treatment assignment, screening, follow-up visit, hospitalization, and event record. However, not all forms were filled in each visit, and participants could have missed the occasional visit. Covariate and adherence values were carried forward from the most recent visit for up to five visits [@wanis2020adjusting]. Participants were censored if they missed six consecutive visits.
+
+## Adherence {-}
+Participants received four packets per day of cholestyramine or a
+placebo at the fifth visit (considered as the baseline of the trial),
+which was increased to six packets per day after the sixth visit.
+Participants returned their unused medication packets and received a new
+supply of medication at each visit. A static treatment regime was
+considered, and all patients would be expected to continue the study
+medication. Since cholestyramine and placebo had no major side-effects,
+the static treatment strategies assumption was reasonable. Medication
+adherence was measured using counts of unused medication packets, where
+we defined satisfactory adherence as \(\ge 80\%\). In other words,
+taking \(<80\%\) medication at a particular visit was considered as
+deviating from the protocol, i.e., nonadherent at that visit. For
+participants who were adherent in a particular visit, we censored them
+at the first visit they become non-adherent. The overall nonadherence
+rate was then quantified by calculating the proportion of participants
+who became nonadherent by their last observation. 
+
+\begin{table}[ht] 
+\begin{center}
+\begin{threeparttable}
+\caption{Estimated effect of cholestyramine treatment on coronary heart disease death or non-fatal myocardial infarction.\label{fig:lipidestimates}}
+\begin{tabular}{lcccccc}
+\toprule
+Method &  \multicolumn{2}{c}{Weights} & \multicolumn{2}{c}{Coef. (log(OR))} & \multicolumn{2}{c}{OR}\\
+  &  Mean &  Min-Max 	 &  Estimate	 &  SE	 &  Estimate	 &  $95\%$ CI \\
+\midrule
+ITT   &   &   & 	-0.16  & 	0.13	 & 	0.85	 & 	0.66-1.09 \\
+Naïve PP  &   &  	 &  -0.22	 &  0.29	 & 	0.80	 & 	0.45-1.41 \\
+B Adj. PP	 &   &   &  -0.25	 &  0.29	 & 	0.78	 & 	0.45-1.37 \\
+L Adj. PP	 &   &   &  0.18	 &  0.33	 &  1.20	 &  0.63-2.28 \\
+uIPW PP  & 1.34  &  1.00-172.49  &  -0.79	 &  0.50	 &  0.46	 &  0.17-1.21 \\
+uIPW PP ($5\%$ truncated)  &  1.16  &  1.00-1.44  &  -0.27	 &  0.29	 &  0.76	 &  0.43-1.34 \\
+sIPW PP	 &  1.01  &  0.16-10.52  &  -0.31	 &  0.29	 &  0.74	 &  0.42-1.29 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item OR: odds ratio; CI: confidence interval; SE: robust standard error; ITT: intention to treat; Naive PP: naive per-protocol; B Adj. PP: baseline adjusted per-protocol; L Adj. PP: time-varying covariates adjusted per-protocol; uIPW PP: unstabilized inverse probability weighted per-protocol; sIPW PP: stabilized inverse probability weighted per-protocol.
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+
+## Covariates {-}
+
+### Baseline Covariates ($B$) {-}
+
+The baseline covariates include baseline risk strata, age at randomization, physical activity level at work at baseline, educational status, and race. Baseline risk strata were created using the combination of three binary prognostic variables: i) positive or negative ECG test, ii) LDL cholesterol greater than 215 mg/dl, and iii) a multiple logistic risk function estimated using the covariates age, number of cigarettes smoked, and diastolic blood pressure at pre-randomization visits one and two.  Baseline measurements of physical activity were categorized into five groups based on levels of activities.
+
+### Time-varying covariates ($L$) {-}
+
+The time-varying covariates were systolic blood pressure, diastolic blood pressure, total serum cholesterol, LDL cholesterol, HDL cholesterol, triglyceride, cigarettes smoked per day, physical activity outside of work, body mass index (grams/sq.cm), nausea, vomiting, diarrhea, calories, protein, total fat, total carbohydrates, angina, GXT, ischemia, total number of aspirin-cmpd tablets past week, P/S ratio, sodium, phosphorus, potassium, thyroxine, iron, total bilirubin, direct bilirubin, alkaline phosphatase, creatinine, fasting glucose, albumin, calcium, white blood cell count, vascular events, non-fatal/non myocardial infarction coronary events, vascular events history, and non-fatal/non myocardial infarction coronary events history. We considered these baseline and time-varying covariates from the previous studies [@TheLipidResearchClinicsProgram1979; @LipidResearch1984; @wanis2020adjusting]. Time-varying measurements of physical activity were categorized into five groups based on levels of activities, blood pressure measurements were taken using the standard sphygmomanometer, and lipid data measurement were recorded using bloodwork. We considered flexible functions for cholesterol, LDL, HDL, and triglyceride since these four covariates were frequently measured variables in the trial. We considered restricted cubic splines with knots at the 5th, 35th, 65th, and 95th percentiles of the covariates as was done in previous research [@wanis2020adjusting]. In other words, since blood lipids were frequently measured variables in the trial, our adherence or outcome models were adjusted for flexible functions of these covariates in the past six visits. 
+
+
+# Future Works {#future}
+
+In this study, adherence was measured as a binary factor. While it is
+common to dichotomize adherence
+\citep{murray_hernan_2016, murray_hernan_2018}, it has been shown to
+introduce bias in effect estimation
+\citep{shrier_platt_steele_schnitzer_2018}. Additional work could
+compare similar effect estimates using partial adherence and more
+complex patterns of adherence over a trial
+\citep{wanis2020adjusting, sanders2019incorporating}. Sparse values are
+problematic in data analysis, but common when working with healthcare
+data. In pragmatic trials where researchers aim to utilize non-intrusive
+forms of follow-up, existing electronic health records and
+administrative databases may be the source of key follow-up information
+\citep{Blaschke-et-al-Adherence-to-Medication, PRECIS-2-tool, PRECIS-tool, Ford-Norrie-Pragmatic-Trials}.
+However, few countries have a single comprehensive data source for all
+forms of health data, requiring follow-up information to be derived by
+linking data from multiple sources leading to sparse values during
+follow-up
+\citep{Blaschke-et-al-Adherence-to-Medication, Ford-Norrie-Pragmatic-Trials}.
+Future work for this active research area, would also benefit from
+exploring a greater range of treatment effects, such as where both the
+most recent treatment received as well as the cumulative dose received
+are able to affect outcomes \citep{young_vatsa_murray_hernan_2019}.
+Additional directions for future works include comparisons to additional
+estimation techniques such as g-estimation, the parametric
+g-computation, and instrumental variable methods
+\citep{hernan_hernandez-diaz_robins_2013, hernan_robins_2017_PP_Pragmatic}.

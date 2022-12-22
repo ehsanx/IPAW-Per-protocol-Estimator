@@ -1,0 +1,288 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% File: jsr-template.tex
+%% Updated: March 12, 2017
+%% Version: 2.2
+%%
+%% LaTeX template file for typesetting papers for
+%% Journal of Statistical Research (JSR)
+%% This file requires a tyle file, jsr.sty
+%% URL: www.isrt.ac.bd/jsr
+%%
+%% Send comments to:
+%% Enayetur Raheem raheem@gmail.com
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% IMPORTANT NOTE FOR THE AUTHORS%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% This template file is prepared to help typesetting papers for
+%% the Journal of Statistical Research (JSR). Please do not
+%% modify anything in this template without putting a
+%% note beside it. Thanks!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% THIS SECTION IS FOR EDITORIAL USE ONLY.
+%% PLEASE DO NOT MODIFY ANYTHING IN THIS SECTION.
+%% SHOULD YOU MODIFY, PLEASE PUT A NOTE OR COMMENT
+%% BEFORE THE MODIFICATION.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% tinytex::parse_install("jsr-template.log")
+\documentclass[9pt, twoside]{article}
+\usepackage{jsr,extsizes,epstopdf} % ADDED NECESSARY PACAKGES TO RUN WITHOUT ERROR
+
+
+\begin{document}
+\thispagestyle{empty} \setcounter{page}{1} \setcounter{section}{0}
+\setcounter{equation}{0}\setcounter{theorem}{0}\setcounter{footnote}{0}
+\setcounter{table}{0} \setcounter{figure}{0}
+\numberwithin{equation}{section}
+
+
+\vspace{-.20in} \baselineskip .18in
+
+\noindent{\it{Journal of Statistical Research \hspace{6.4cm}ISSN
+0256 - 422 X} \\ 201x, Vol. xx, No. xx, pp. xx-xx}\symbolfootnote[0]{\copyright \ \ Institute of
+Statistical Research and Training (ISRT), University of Dhaka, Dhaka
+1000, Bangladesh.}
+%% END OF EDITORIAL SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Please start here. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% You have the flexibility to use your own macro commands.
+%% Make sure that you include it right below, and send it in
+%% with your paper.
+%% IF YOU DO NOT USE MACRO, LEAVE IT AS IS!
+
+%\input{macro.tex} %% you may edit the macro.tex file or just use your own.
+
+\title{TITLE OF YOUR ARTICLE IN UPPER CASE LETTERS. YOU JUST TYPE
+THE TITLE IN FULL.  NO NEED TO BREAK EACH LINE.}
+
+% % % % % % % % % % % % % % % % % %
+%% AUTHOR AND AFFICIATIONS SECTION
+% % % % % % % % % % % % % % % % % % 
+
+%% To ensure double-blinded review process, DO NOT uncomment this 
+%% section now. This section will be completed only if the paper 
+%% is accepted for publication.
+
+%\author{Name of the First Author} %% In regular caps as written.
+%% Address of the author. Use \\ for a linebreak.
+%\address{Institute of Statistical Research and Training (ISRT) \\
+%University of Dhaka, Dhaka 1000, Bangladesh}
+
+%\email{firstauthor@domain.net} %%  your email address as written.
+
+%% If there is more than one author, typeout second author's name
+%% and addresses below. If not, you may comment them out.
+%\author{Name of the Second Author}
+
+%\address{Second author's address}
+
+%\email{secondauthor@domain.net}
+
+%% you may copy the \author, \address, \email and past here if
+%% there are more than two authors.
+
+\vspace{.2in}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ABSTRACT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\centerline{\sc{summary}} \vspace{0.1in} \baselineskip.20in
+\centerline{
+\begin{minipage}{4.5in} \small{ \noindent
+%% Please typeset ABSTRACT below.
+Place your Abstract here. Place your Abstract here.
+%% End of ABSTRACT.
+}\end{minipage}}
+
+\vspace{.15in} \baselineskip.18in
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% KEYWORDS AND PHRASES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\centerline{ \begin{minipage}{4.5in} \small{ \noindent {\it Keywords
+and phrases:} Place keywords here}\end{minipage}}
+
+\vspace{.1in}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SUBJECT CLASSIFICATION (Leave as is if not applicable)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\centerline{ \begin{minipage}{4.5in} \small{ \noindent {\it AMS
+Classification:} Place Classification here. Leave as is, if there is
+no classification}\end{minipage}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% BEGINNING OF THE BODY OF THE PAPER.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+
+Introduction goes here. In this section, I will describe how to
+typeset equations and how to label them so that you can refer them
+later in the discussion.
+
+
+\subsection{Citation}
+
+To cite a paper, use \verb|\cite{}|. For example, \cite{tibshirani1996regression} proposed the LASSO. To cite as inline reference, use \verb|\citep{}|. For example. We found the LASSO \citep{tibshirani1996regression} to be a useful technique in our context. 
+
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% WRITING EQUATIONS, LABELING AND  REFERRING THEM.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Typesetting Equations}
+Here is an example of how to type equations and label it. In this
+equation, I have labeled the equation as \verb"eq:eq1". Note that,
+it will not appear in your final output. When you will refer this
+equation later, use \verb"\label{eq:eq1}".
+
+\begin{equation}\label{eq:eq1}
+\hat{\mu}_{j}= \frac{1}{n_j} \sum_{i=1}^{n_j} Y_{ji}, \;
+\hat\sigma^2_j = \frac{1}{n_j} \sum_{i=1}^{n_j} (Y_{ji} -
+\hat{\mu}_{j})^2.
+\end{equation}
+
+\subsection{How to Refer to an Equation}
+
+See how I am referring the above equation in the following: In
+Equation \ref{eq:eq1}, we have estimated $\mu_j$. Please note that,
+I have put the full stop just inside the end \$ sign, NOT outside
+the \$ sign. This is IMPORTANT. Why? It will prevent you from an
+unexpected line-break just before the full stop. If it happens, the
+full stop will not be with the $\mu_j.$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% WRITING EQUATIONS, LABELING AND  REFERRING THEM.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Example of an Example}
+
+Here I will show how to typeset an example.
+\begin{example} Here goes your example.
+Just typeset your example within the \verb"\begin{example}" and
+\verb"\end{example}" command. It will then be automatically
+numbered.
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% WRITING THEOREMS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Writing Theorems: An Example}
+
+\begin{theorem}[Optional name of the theorem]
+\quad Let $X_j \sim \Lambda (\theta, \tau_j^2), \ j=1, \cdots ,
+m,$ and suppose that observations from a sample of size $n_j$ are
+available for each population.  Then a combined sample estimate of
+$\theta$ which has minimum variance among the class of the unbiased
+estimators of $\theta$ which are linear functions of
+$\hat\theta_1,\ldots \hat\theta_m$ is given by
+$$\tilde\theta=\frac{\sum_{j=1}^m \frac{n_j}{\hat\nu_j}\hat\theta_j}
+{\sum_{j=1}^m \frac{n_j}{\hat\nu_j}},$$ where
+\[
+\hat\nu_j = \hat\sigma_j^{2} (1+\hat\sigma_j^{2}/2) \exp \{2\hat\mu_j +
+\hat\sigma_j^{2}\}.
+\]
+\end{theorem}
+
+\begin{theorem}[Yet another example]\quad Let $n\to\infty$ and also $n_j/n$ approches to a constant
+for any $j=1,\ldots,m.$ Then under the null hypothesis in (2.1), the
+test statistic $T_{1}$ follows a chi-square distribution with $m$
+degrees of freedom.
+\end{theorem}
+\proof You may use \verb"\proof "command to start the Proof of your
+Theorem, Lemma etc.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% WRITING LEMMA
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Writing Lemma: An Example}
+
+\begin{lemma}[Ahmed and Tomkins, 1995]   Just write your lemma
+within the \verb"\begin{lemma}" and \verb"\end{lemma}" command and
+they will be automatically numbers. Its that easy!
+\end{lemma}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% WRITING LEMMA
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\subsection{Adding a Table}
+Please use the following style to add a table in your document.
+Thanks!
+\begin{table}
+  \centering
+  \caption{Caption of your Table}\label{tb:label-of-table}
+  \bigskip
+  \begin{tabular}{l|r|r|r|r}\hline
+& \multicolumn{2}{c}{H F}&\multicolumn{2}{c}{G F}\\\hline Statistics&F&Log-F & F & Log-F
+\\\hline
+    Mean & 1275 & 7.003 & 1275 & 6.99 \\
+    St. Deviation & 730.3 & 0.5574& 728 & 0.591 \\
+    Coeff. Variation & 0.573 & 0.0796& 0.571&0.0845 \\
+    Coeff.Skewness & 1.5 & -0.0787 & 1.52 &-0.0618\\
+    Serial Corr. & 0.06 &-0.0114 & 0.065& 0.068 \\\hline
+  \end{tabular}
+\end{table}
+
+\subsection{How about Wide Table?}
+Here is an example of table in landscape mode. Please see Table~\ref{tb:widetable}.
+
+\begin{landscape}
+\begin{table}
+  \centering
+  \caption{MLE (New): MSE and Bias of $\hat{\lambda}$ and $\hat{\sigma}$ for
+  fixed $\lambda=0$ and $\sigma=1$ based on 1,000 Monte Carlo runs.}\label{tb:widetable}
+  \bigskip
+ \begin{tabular}{cccccccccccc} \hline
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+    \multicolumn{2}{c}{Parameters} & \multicolumn{4}{c}{MSE$(\hat{\lambda})$} & &\multicolumn{4}{c}{MSE$(\hat{\sigma})$}\\ \cline{3-6} \cline{8-11}
+$\delta$ & $\tau$ & $n=25$ & $n=50$ & $n$=100 & $n$=200 && $n$=25 &
+$n$=50 & $n$=100 & $n$=200 \\ \hline
+    0   &   0.25    &   0.11107 &   0.05621 &   0.02779 &   0.01382 &&   0.02271 &   0.01116 &   0.00553 &   0.00272 \\
+        &   0.50    &   0.11268 &   0.05546 &   0.02769 &   0.01385 &&   0.02294 &   0.01078 &   0.00538 &   0.00271 \\
+        &   1.00    &   0.11157 &   0.05568 &   0.02778 &   0.01362 &&   0.02232 &   0.01109 &   0.02841 &   0.00271 \\
+        &           &           &           &           &           &&           &           &           &           \\
+    1   &   0.25    &   0.11089 &   0.05590 &   0.02776 &   0.01398 &&   0.02280 &   0.01110 &   0.00543 &   0.00275 \\
+        &   0.50    &   0.11090 &   0.05495 &   0.02765 &   0.01388 &&   0.02241 &   0.01089 &   0.00541 &   0.00272 \\
+        &   1.00    &   0.11304 &   0.05535 &   0.02750 &   0.01360 &&   0.02350 &   0.01106 &   0.00552 &   0.00277 \\\hline
+\end{tabular}
+\end{table}
+\end{landscape}
+
+\subsection{Adding Figures to your Document}
+Here is an example of adding figures to your document.
+\begin{figure}[h]\label{fig:label}
+  \centering
+\epsfxsize=4in \epsfbox{test.eps}
+  \caption{Caption of your Figure}
+\end{figure}
+
+\subsection{Last but not the Least}
+Please do not use any \verb"\vspace" command to make paragraphs. use
+\verb"\paragraph" or \verb"\para" commands instead. Should you need
+to use commands to make space, use the \verb"\smallskip" or
+\verb"\bigskip" command. However, we encourage you NOT to use any of
+these commands if it is not absolutely necessary.
+
+\subsection{Acknowledgements, if Any}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% BIBLIOGRAPHY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliographystyle{asa}
+\bibliography{jsr}
+
+\bigskip
+
+%% Article History
+\flushleft Received: Received date
+\flushleft Accepted: Date Accepted
+
+\end{document}

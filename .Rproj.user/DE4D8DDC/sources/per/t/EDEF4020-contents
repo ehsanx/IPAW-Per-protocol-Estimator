@@ -1,0 +1,184 @@
+---
+title: Properties of Inverse Probability of Adherence Weighted Estimator of the Per-protocol Effect for Sustained Treatment Strategies under Different Data-generating Mechanisms and Adherence Patterns
+author: 
+  - Lucy Mosquera^[Equal contribution as first author]
+  - Mohammad Ehsanul Karim^[Corresponding Author; Equal contribution as first author]
+  - Md. Belal Hossain
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  pdf_document:
+    citation_package: natbib
+    fig_caption: yes
+    keep_tex: yes
+    latex_engine: xelatex
+    number_sections: yes
+  html_document:
+    df_print: paged
+    citation_package: natbib
+    fig_caption: yes
+    number_sections: yes
+  word_document: default
+  bookdown::html_document2:
+    citation_package: natbib
+    df_print: paged
+    fig_caption: yes
+    highlight: textmate
+    keep_md: yes
+    number_sections: yes
+    theme: lumen
+bibliography: bibliography3.bib
+biblio-style: plainnat2
+always_allow_html: yes
+header-includes:
+- \usepackage{graphicx,longtable,booktabs,threeparttable}
+- \usepackage{float}
+- \usepackage{setspace}\singlespacing
+- \floatplacement{figure}{H}
+- \floatplacement{table}{H}
+- \usepackage{xcolor,lipsum,caption}
+- \usepackage[round]{natbib}
+- \usepackage{pdflscape}
+- \usepackage{lscape}
+- \newcommand{\blandscape}{\begin{landscape}}
+- \newcommand{\elandscape}{\end{landscape}}
+- \usepackage{array}
+  \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+  \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+  \newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+link-citations: yes
+fontsize: 12pt
+geometry: margin=1in
+---
+
+
+
+```{r setup, include=FALSE}
+path <-   "ehsan" #"wildscop" #"ekarim" # 
+knitr::opts_chunk$set(echo = TRUE, fig.pos='H')
+knitr::opts_chunk$set(tidy.opts=list(width.cutoff=60), tidy=TRUE)
+# filePath <- "C:\\Users\\xxxxx\\Desktop\\"
+# mainfont: Times New Roman
+require(jtools)
+require(Publish)
+require(sjPlot)
+require(ggplot2)
+require(dplyr)
+require(broom.mixed)
+require(formatR)
+library(kableExtra)
+```
+
+```{r, include=FALSE}
+options(tinytex.verbose = TRUE)
+```
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+# Corresponding Author {-}
+
+Correspondence to Dr. Mohammad Ehsanul Karim, School of Population and Public Health, Faculty of Medicine, University of British Columbia, 2206 East Mall Vancouver, BC V6Z 1Y6, Canada (e-mail: $ehsan.karim@ubc.ca$).
+
+# Author Details {-}
+
+1. Lucy Mosquera [ORCiD: 0000-0002-5289-8372]
+  - Department of Statistics, University of British Columbia, Vancouver, British Columbia, Canada
+2. Mohammad Ehsanul Karim [ORCiD: 0000-0002-0346-2871; twitter: ehsan7x]
+  - School of Population and Public Health, University of British Columbia, Vancouver, British Columbia, Canada
+  - Centre for Health Evaluation and Outcome Sciences, University of British Columbia, Vancouver, British Columbia, Canada
+3. Md. Belal Hossain [ORCiD: 0000-0003-4603-863X]
+  - School of Population and Public Health, University of British Columbia, Vancouver, British Columbia, Canada
+
+# Funding details {-}
+
+This work was supported by BC Support Unit’s Real-World Clinical Trials Methods Cluster, Project \#2, led by Dr. Karim (with research members Paul Gustafson, Joan Hu, Hubert Wong, and Derek Ouyang), and Dr. Karim's Natural Sciences and Engineering Research Council of Canada (NSERC) Discovery Accelerator Supplements. 
+
+# Disclosure statement {-}
+
+LM and BH declare no potential conflict of interests. MEK is supported by the Michael Smith Foundation for Health Research Scholar award. Over the past three years, MEK has received consulting fees from Biogen Inc. for consulting unrelated to this current work.
+
+# Data availability statement {-}
+
+The trial dataset access can be requested from National Heart, Blood, and Lung Institute. The analysis of secondary and de-identified data was exempt from the requirements for research ethics approval both in accordance with the University of British Columbia Policy 89 and in accordance with the provisions of the Tri-Council Policy Statement: Ethical Conduct for Research involving Humans, Article 2.5. The software code used is available from the corresponding author on reasonable request.
+
+# Acknowledgments {-}
+
+We thank Lang Wu (Department of Statistics, The University of British Columbia) and Hubert Wong (School of Population and Public Health, The University of British Columbia) for helpful comments. This research was enabled in part by computing support provided by WestGrid (www.westgrid.ca), Compute Canada (www.computecanada.ca), and the Centre for Health Evaluation and Outcome Sciences. We also thank Sharon Roman, a patient partner of the BC SUPPORT Unit methods clusters, for her involvement with the project.
+
+\newpage
+    \pagenumbering{arabic}
+    \setcounter{page}{1}
+
+# Properties of Inverse Probability of Adherence Weighted Estimator of the Per-protocol Effect for Sustained Treatment Strategies under Different Data-generating Mechanisms and Adherence Patterns {-}
+
+# Abstract {-}
+
+We investigated the finite sample performances of Inverse Probability (of Adherence) Weighted per-protocol (IPW-PP) estimators to address medication non-adherence in the context of a pragmatic randomized controlled trial. We compared the performances of IPW-PP estimators with commonly used naive and baseline adjusted per-protocol estimators, under different data-generating mechanisms (DGMs) emulating pragmatic trials, comparing two sustained treatment strategies, possibly with a non-null effect. DGMs include (i) different roles of a baseline variable; whether future time-varying prognostic factors are impacted by past adherence; and whether the baseline variable is measured, (ii) whether adherence patterns observed in two arms are differential, and when we have access to measurements of adherence and confounders that are recorded infrequently (sparsely). When baseline confounders are adjusted, we generally obtain unbiased estimates, but, if some necessary variables are not measured, the IPW-PP estimator may still be preferable. High non-adherence patterns might negatively impact IPW-PP effect estimators, particularly when DGMs include confounding that may be impacted by previous adherence history. We used the above estimators to analyze a case study from the Lipid Research Clinics Coronary Primary Prevention Trial data in the presence of non-adherence.
+
+<!---
+Further bias may be introduced when post-baseline measurements of adherence are recorded infrequently. 
+
+We investigated the finite sample performances of Inverse Probability (of Adherence) Weighted per-protocol (IPW PP) estimators to address medication non-adherence in the context of a pragmatic randomized controlled trial. We compared the performances of IPW PP estimators with commonly used naive and baseline adjusted per-protocol estimators. We have considered the following data-generating mechanisms emulating pragmatic trials across several dimensions of parametric spaces, comparing two sustained treatment strategies, possibly with a non-null effect. We varied the data generation process (i) in terms of the role of a baseline variable; whether future time-varying prognostic factors are impacted by past adherence; and whether the baseline variable is measured vs. unmeasured, (ii) whether adherence patterns observed in two arms are differential vs. non-differential, and when we have access to measurements of adherence and confounders that are recorded frequently vs. infrequently (sparsely). When baseline confounders are measured and adjusted, we generally obtain unbiased estimates when IPW PP or baseline adjusted per-protocol estimators are used. However, when some of these variables are not measured within our data-generating mechanisms, we found that the IPW PP estimator may still be preferable compared to the other estimators under consideration. We also observed that high non-adherence patterns might negatively impact IPW PP effect estimators, particularly when the data generating process includes complex patterns (existence of confounding that may be impacted by previous adherence history). Further bias may be introduced when post-baseline measurements of adherence are recorded infrequently. We used the above estimators to analyze a case study from the Lipid Research Clinics Coronary Primary Prevention Trial data in the presence of non-adherence. --->
+
+# Key Words {-}
+
+Non-adherence, causal inference, pragmatic trials, per-protocol
+
+<!--- 
+In the present work, we presents a data generating mechanism emulating a pragmatic randomized controlled trial comparing two sustained treatment strategies, possibly with a non-null effect. We explored relative performance of various versions of per-protocol effect estimators in the presence of non-adherence across several dimensions of the parametric data generation space: (i) when data generating process is different in terms of the role of a baseline variable, and whether future time-varying prognostic factors are impacted by past adherence - when baseline variable under consideration is measured vs. not, (ii) different adherence patterns observed in two arms, when we have access to measurements that are recorded regularly vs. irregularly (sparsely). We used the estimators to analyze the a case study from the Lipid Research Clinics Coronary Primary Prevention Trial data in the presence of non-adherence to medication.
+--->
+
+
+```{r child = 's1Intro.RMD', eval=TRUE, echo=TRUE}
+```
+
+
+```{r child = 's2Method.RMD', eval=TRUE, echo=TRUE}
+```
+
+```{r child = 's3Result.RMD', eval=TRUE, echo=TRUE}
+```
+
+```{r child = 's4CaseStudy.RMD', eval=TRUE, echo=TRUE}
+```
+
+```{r child = 's5Discussion.RMD', eval=TRUE, echo=TRUE}
+```
+
+```{r child = 'tab.RMD', eval=TRUE, echo=TRUE}
+```
+
+```{r child = 'fig.RMD', eval=TRUE, echo=TRUE}
+```
+
+<div id="refs"></div>
+
+
+\pagebreak
+
+\appendix
+\section*{Appendix}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\setcounter{section}{0}
+\renewcommand{\thesection}{\Alph{section}}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\setcounter{secnumdepth}{5}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+\numberwithin{equation}{section}
+
+
+```{r child = 's5web.RMD', eval=TRUE, echo=TRUE}
+```
+
+\clearpage
+
+
+#```{r child = 's6example.RMD', eval=TRUE, echo=TRUE}
+```
+
+
+\clearpage
+
+\setcounter{page}{1}
